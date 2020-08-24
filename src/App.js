@@ -1,18 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+//import Boton from './Components/Boton.js';
+import Formulario from './Components/Formulario.js';
+import Menu from './Components/Menu.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hola Mundo!!!
-        </p>
-        
-      </header>
+      <section>
+        <h1>Bienvenido a Restorant</h1>
+      </section>
+      <section className="formulario">
+        <Formulario />
+      </section>
+      <div>
+        <Menu />
+      </div>
     </div>
+  
+    
   );
 }
 
