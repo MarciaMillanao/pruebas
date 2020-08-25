@@ -1,0 +1,19 @@
+.container-ingreso{
+padding-top: 70%;
+}
+
+.container-title{
+  border: 2px solid black;
+  padding: 3%;
+}
+
+.container-btn{
+  padding-top: 2%;
+  margin-left: 5%;
+}
+
+.container-btn button{
+  width: 120%;
+  background-color:#C23440;
+  border: 2px solid black;
+}
