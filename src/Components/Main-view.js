@@ -3,6 +3,7 @@ import Boton from './Boton.js';
 import {Container, Row, Col} from 'react-bootstrap';
 import Imagen from '../img/1687f20dd9b845b2b7478240414a9b62.jpg';
 import '../style/main.css';
+import {Link} from 'react-router-dom';
 
 
 
@@ -22,7 +23,9 @@ class Main extends React.Component {
             </Row>
             <Row className="container-btn">
               <Col md="6">
+                <Link to="/autenticar">
                 <Boton nombre="Mesero"/>
+                </Link>
               </Col>
               <Col md="6">
               <Boton nombre="Cocinero" />
