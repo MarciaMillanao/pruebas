@@ -1,14 +1,26 @@
 import React from 'react';
 import './App.css';
-import Main from './Components/Main-view.js';
+import Main from './Components/Main-view';
+import { BrowserRouter as Router,
+   Switch, Route} from 'react-router-dom';
+import Menu from './Components/Menu';
+import Authview from './Components/Auth-view';
 
 function App() {
   return (
-    <div className="App">
-      <div>
+    <Router>
+    <Switch>
+      <Route exact path="/">
         <Main />
-      </div>
-    </div>
+      </Route>
+      <Route exact path="/autenticar">
+        <Authview />
+      </Route>
+      <Route exact path="/mesero">
+        <Menu/>
+      </Route>
+    </Switch>
+    </Router>
   );
 }
 
