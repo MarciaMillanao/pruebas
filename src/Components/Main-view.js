@@ -2,8 +2,8 @@ import React from 'react';
 import Boton from './Boton.js';
 import {Container, Row, Col} from 'react-bootstrap';
 import Imagen from '../img/1687f20dd9b845b2b7478240414a9b62.jpg';
-import '../style/main.css';
 import {Link} from 'react-router-dom';
+import '../style/main.css';
 
 
 

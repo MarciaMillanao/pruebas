@@ -1,28 +1,27 @@
 import React from 'react';
 import './App.css';
-//import Main from './Components/Main-view';
+import Main from './Components/Main-view';
 import { BrowserRouter as Router,
   Switch,
   Route} from 'react-router-dom';
 //import Menu from './Components/Menu';
+import Viewmenu from './Components/Menu-view';
 import Authview from './Components/Auth-view';
-import Formulario from './Components/Formulario';
-import Main from './Components/Main-view';
 
 function App() {
   return (
     <Router>
-    <Switch>
-      <Route exact path="/">
-        <Formulario />
-      </Route>
-      <Route exact path="/main">
-        <Main />
-      </Route>
-      <Route exact path="/autenticar">
-        <Authview/>
-      </Route>
-    </Switch>
+      <Switch>
+        <Route exact path="/">
+          <Authview />
+        </Route>
+        <Route exact path="/main">
+          <Main />
+        </Route>
+        <Route exact path="/autenticar">
+          <Viewmenu/>
+        </Route>
+      </Switch>
     </Router>
   );
 }
