@@ -24,7 +24,7 @@ class Main extends React.Component {
             <Row className="container-btn">
               <Col md="6">
                 <Link to="/autenticar">
-                <Boton nombre="Mesero"/>
+                  <Boton nombre="Mesero"/>
                 </Link>
               </Col>
               <Col md="6">

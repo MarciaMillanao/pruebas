@@ -1,5 +1,37 @@
 .input-form {
   display: block;
-  margin: 2% 0% 2% 40%;
-
 }
+
+.container-ingreso{
+  padding-top: 50%;
+  text-align: center;
+  }
+  
+  .container-title{
+    border: 2px solid black;
+    padding: 3%;
+  }
+  
+  .container-form{
+    padding-top: 2%;
+    margin-left: 5%;
+  }
+  
+  .container-form input{ 
+    background-color: #C23440;
+    margin: 6% 2%;
+    padding: 1%;
+    border: 2px solid black;
+  }
+
+  ::-webkit-input-placeholder { 
+    color:black; 
+  } 
+
+
+  .container-form button{
+    width: 120%;
+    background-color:#C23440;
+    border: 2px solid black;
+    margin-left: -7%;
+  }
