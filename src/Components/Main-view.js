@@ -23,7 +23,7 @@ class Main extends React.Component {
             </Row>
             <Row className="container-btn">
               <Col md="6">
-                <Link to="/autenticar">
+                <Link to="/mesero">
                   <Boton nombre="Mesero"/>
                 </Link>
               </Col>

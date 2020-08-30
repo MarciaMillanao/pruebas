@@ -18,8 +18,8 @@ function App() {
         <Route exact path="/main">
           <Main />
         </Route>
-        <Route exact path="/autenticar">
-          <Viewmenu/>
+        <Route exact path="/mesero">
+          <Viewmenu   />
         </Route>
       </Switch>
     </Router>

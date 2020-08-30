@@ -1,0 +1,72 @@
+import React, { Fragment, useState } from 'react';
+import data from '../data';
+import '../style/Menu-view.css';
+
+const datosDesayuno = data.Desayuno;
+const datosAlmuerzo = data.Almuerzo;
+
+const Waiter = () => {
+// Estado del pedido, aquí se actualizará el estado del pedido
+ const [pedido, setPedido] = useState([])
+
+//Aquí vamos agregando al array vacío los productos que se van haciendo click
+ const  addProduct = (product) => {   
+  setPedido([
+    ...pedido,
+    {producto: product.name, valor: product.value, id:product.id}
+  ])  
+}
+
+// Aquí iremos eliminando los productos del pedido, antes de enviarse a la cocina
+const eliminarItem = id => {
+  const arrayFiltrado = pedido.filter(item => item.id !== id) 
+  setPedido(arrayFiltrado)
+}
+
+// función para sumar el valor del pedido
+const calcular = pedido.map(item => Math.floor(item.valor))
+const sumar = calcular.reduce((a , b) => a + b, 0)
+console.log(sumar)
+
+  return (
+    <Fragment>
+      <div className="menuSection col">
+        <div >
+          <h4>Desayuno</h4>
+            {
+            datosDesayuno.map((element) => (
+            <button className="styleButtonMenu btn" key={element.id} name={element.product} value={element.valor} id={element.id} onClick={(e) => addProduct(e.target)
+            }>{element.product}${element.valor}</button>
+            ))
+            }
+        </div>
+        <div>
+        <h4>Almuerzo</h4>
+        {
+          datosAlmuerzo.map((element) => (
+          <button className="styleButtonMenu btn" key={element.id} name={element.product} value={element.valor} id={element.id} onClick={(e) => addProduct(e.target)}>{element.product}${element.valor}</button>
+          ))
+        }
+      </div>     
+    </div>
+    <div className="billSection col">Aquí va el pedido
+        {
+          pedido.map((item) => (
+            <li key={item.id}>
+              {item.producto} {item.valor} 
+              <button onClick={() => eliminarItem(item.id)}>Eliminar</button>
+            </li>
+          ))   
+        }
+        <div>
+          {
+            <p>Total del pedido: {sumar}</p>
+          }
+        </div>
+    </div>
+    <div className="statusOrder col">Aquí veremos el estatus del pedido</div>
+    </Fragment>
+    )
+}
+
+export default Waiter
