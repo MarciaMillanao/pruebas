@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import data from '../data';
 import '../style/Menu-view.css';
-// import {firebase} from '../FirebaseConfig';
+import {firebase} from '../FirebaseConfig';
 
 const datosDesayuno = data.Desayuno;
 const datosAlmuerzo = data.Almuerzo;
@@ -15,7 +15,7 @@ const Waiter = () => {
  const  addProduct = (product) => {   
   setPedido([
     ...pedido,
-    {producto: product.name, valor: product.value, id:product.id}
+    {producto: product.name, valor: product.value, id:product.id, cantidad}
   ]) 
 }
 
@@ -30,17 +30,43 @@ const calcular = pedido.map(item => Math.floor(item.valor))
 const sumar = calcular.reduce((a , b) => a + b, 0)
 console.log(sumar)
 
-// Funcion para agregar cantidad
+// Funcion para agregar cantidad NO FUNCIONA AÚN
 const aumentar = (cantidad) => {
   console.log(typeof cantidad)
- setCantidad(Math.floor(cantidad += 1))
-  console.log(cantidad)
+//  setCantidad(Math.floor(cantidad += 1))
+//   console.log(cantidad)
+}
+// Funcion para disminuir cantidad NO FUNCIONA AÚN
+const disminuir = (cantidad) => {
+  console.log(typeof cantidad)
+  // setCantidad(cantidad -1)
 }
 
-const disminuir = () => {
-  setCantidad(cantidad -1)
+// Esta función enviará el pedido listo a la colección de Firebase
+const totalPedido = () => {
+  if (window.confirm("Quieres confirmar el pedido")) { 
+    // setPedido([
+    //   ...pedido,
+    //   {status: 'En Espera'}
+    // ])
+    console.log(pedido)
+    const db = firebase.firestore();
+    db.collection('pedido').add({
+      ...pedido,
+      status: 'En espera',
+      total: sumar
+    })
+    .then( (docRef) => {
+      setPedido([])
+      console.log("Id del documento: " , docRef.id )
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }else{
+    console.log('ok sigue en en lo tuyo')
+  }
 }
-
 
   return (
     <Fragment>
@@ -74,11 +100,12 @@ const disminuir = () => {
             </li>
           ))   
         }
-        <div>
+        <div> <hr/>
           {
             <p>Total del pedido: {sumar}</p>
           }
         </div>
+        <button onClick={() => totalPedido()}>Enviar pedido</button>
     </div>
     <div className="statusOrder col">Aquí veremos el estatus del pedido</div>
     </Fragment>
