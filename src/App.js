@@ -6,14 +6,14 @@ import { BrowserRouter as Router,
   Route} from 'react-router-dom';
 //import Menu from './Components/Menu';
 import Viewmenu from './Components/Menu-view';
-import Authview from './Components/Auth-view';
+import AuthPersonal from './Components/AuthPersonal';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <Authview />
+          <AuthPersonal/>
         </Route>
         <Route exact path="/main">
           <Main />

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import data from '../data';
 import '../style/Menu-view.css';
+// import {firebase} from '../FirebaseConfig';
 
 const datosDesayuno = data.Desayuno;
 const datosAlmuerzo = data.Almuerzo;
@@ -8,13 +9,14 @@ const datosAlmuerzo = data.Almuerzo;
 const Waiter = () => {
 // Estado del pedido, aquí se actualizará el estado del pedido
  const [pedido, setPedido] = useState([])
+ const [cantidad, setCantidad] = useState(1)
 
 //Aquí vamos agregando al array vacío los productos que se van haciendo click
  const  addProduct = (product) => {   
   setPedido([
     ...pedido,
     {producto: product.name, valor: product.value, id:product.id}
-  ])  
+  ]) 
 }
 
 // Aquí iremos eliminando los productos del pedido, antes de enviarse a la cocina
@@ -27,6 +29,18 @@ const eliminarItem = id => {
 const calcular = pedido.map(item => Math.floor(item.valor))
 const sumar = calcular.reduce((a , b) => a + b, 0)
 console.log(sumar)
+
+// Funcion para agregar cantidad
+const aumentar = (cantidad) => {
+  console.log(typeof cantidad)
+ setCantidad(Math.floor(cantidad += 1))
+  console.log(cantidad)
+}
+
+const disminuir = () => {
+  setCantidad(cantidad -1)
+}
+
 
   return (
     <Fragment>
@@ -53,7 +67,9 @@ console.log(sumar)
         {
           pedido.map((item) => (
             <li key={item.id}>
-              {item.producto} {item.valor} 
+              {item.producto} {item.valor}
+              <button onClick={(e) => aumentar(Math.floor(e.target.cantidad) )}>+</button> <span>{cantidad}</span>
+              <button onClick={() => disminuir()}>-</button>
               <button onClick={() => eliminarItem(item.id)}>Eliminar</button>
             </li>
           ))   
