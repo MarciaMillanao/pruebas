@@ -7,6 +7,7 @@ import { BrowserRouter as Router,
 //import Menu from './Components/Menu';
 import Viewmenu from './Components/Menu-view';
 import AuthPersonal from './Components/AuthPersonal';
+import KitchenView from './Components/KitchenView';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route exact path="/mesero">
           <Viewmenu   />
+        </Route>
+        <Route exact path="/cocina">
+          <KitchenView/>
         </Route>
       </Switch>
     </Router>

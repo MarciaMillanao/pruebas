@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 const AuthPersonal = (props) => {
   const [personalNombre, setPersonalNombre] = useState([])
   const [personalPassword, setPersonalPassword] = useState([])
+  const [personalCargo, setPersonalCargo] = useState([])
   const [nombre, setNombre] = useState('')
   const [password, setPassword] = useState('')
 
@@ -19,8 +20,10 @@ const AuthPersonal = (props) => {
         ))
         let arrNombres =user.map( item => item.nombre)
          let arrPassword = user.map(item => item.password)
+         let arrCargo = user.map(item => item.cargo)
          setPersonalNombre(arrNombres);
          setPersonalPassword(arrPassword)
+         setPersonalCargo(arrCargo)
          
       }catch(error){
         console.log(error)
@@ -37,7 +40,13 @@ const AuthPersonal = (props) => {
 
        if (personalPassword[indexName] === password){
            console.log('personal validado')
+           if(personalCargo[indexName] === 'mesero'){
             return props.history.push('/mesero')
+           }else{
+             return  props.history.push('/cocina')
+           }
+            
+            
        }
        else{
         alert('22No existe ususario o email, revisa de nuevo')
