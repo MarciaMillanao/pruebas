@@ -1,15 +1,19 @@
-import React, { Fragment, useState } from 'react';
-import data from '../data';
+import React, { Fragment, useState, useEffect } from 'react';
+import data from '../data.js';
 import '../style/Menu-view.css';
 import {firebase} from '../FirebaseConfig';
 
 const datosDesayuno = data.Desayuno;
 const datosAlmuerzo = data.Almuerzo;
+const db = firebase.firestore();
+//const fecha = new Date();
+let arrDocument=[];
 
 const Waiter = () => {
 // Estado del pedido, aquí se actualizará el estado del pedido
  const [pedido, setPedido] = useState([])
  const [cantidad, setCantidad] = useState(1)
+ const [nombreCliente, setNombreCliente] = useState('')
 
 //Aquí vamos agregando al array vacío los productos que se van haciendo click
  const  addProduct = (product) => {   
@@ -45,16 +49,11 @@ const disminuir = (cantidad) => {
 // Esta función enviará el pedido listo a la colección de Firebase
 const totalPedido = () => {
   if (window.confirm("Quieres confirmar el pedido")) { 
-    // setPedido([
-    //   ...pedido,
-    //   {status: 'En Espera'}
-    // ])
-    console.log(pedido)
-    const db = firebase.firestore();
     db.collection('pedido').add({
-      ...pedido,
+      ...pedido, 
       status: 'En espera',
-      total: sumar
+      total: sumar,
+      nombreCliente
     })
     .then( (docRef) => {
       setPedido([])
@@ -67,6 +66,21 @@ const totalPedido = () => {
     console.log('ok sigue en en lo tuyo')
   }
 }
+
+useEffect(() => {
+  const visualizarPedidos = async () => {
+    try {
+      const data = await db.collection('pedido').get()
+       arrDocument = data.docs.map(doc => ({id:doc.id, ...doc.data()}))
+      console.log(32, arrDocument)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+  visualizarPedidos();
+}, [])
+ 
 
   return (
     <Fragment>
@@ -90,6 +104,10 @@ const totalPedido = () => {
       </div>     
     </div>
     <div className="billSection col">Aquí va el pedido
+        <div>
+          <h6>Ingresa nombre cliente</h6>
+          <input type="text" placeholder="nombre del cliente" onChange={(e) => setNombreCliente(e.target.value)}/>
+        </div>
         {
           pedido.map((item) => (
             <li key={item.id}>
@@ -107,7 +125,15 @@ const totalPedido = () => {
         </div>
         <button onClick={() => totalPedido()}>Enviar pedido</button>
     </div>
-    <div className="statusOrder col">Aquí veremos el estatus del pedido</div>
+        <div className="statusOrder col">Aquí veremos el estatus del pedido
+        {
+          arrDocument.map((item) => (
+          <div key={item.id}>{item.nombreCliente}
+          <button>Por Entregar</button>
+          </div>
+          ))
+        }
+        </div>
     </Fragment>
     )
 }

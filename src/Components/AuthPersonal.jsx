@@ -28,10 +28,10 @@ const AuthPersonal = (props) => {
     } 
     autenticar()
     setNombre('')
-setPassword('')
+    setPassword('')
   }, [])
 
-  const Validar = (e) => {
+  const Validar = () => {
     if (personalNombre.indexOf(nombre) !== -1 && personalPassword.indexOf(password) !== -1){
        const indexName = personalNombre.findIndex(name => name === nombre)
 
