@@ -5,7 +5,9 @@ import Imagen from '../img/1687f20dd9b845b2b7478240414a9b62.jpg';
 import {Link} from 'react-router-dom';
 import '../style/Authview.css';
 
+
 class Authview extends React.Component {
+
   render() {
     return <Container fluid="md">
       <Row>
@@ -21,9 +23,8 @@ class Authview extends React.Component {
             </Row>
             <Row className="container-form">
               <form>
-                <input type="text" placeholder="Ingresa tu Nombre" className="input-form"></input>
-                <input type="email" placeholder="Ingresa tu Email" className="input-form"></input>
-                <input type="password" placeholder="Ingresa tu Contraseña" className="input-form"></input>
+                <input type="text" placeholder="Ingresa tu Nombre" className="input-form"/>
+                <input type="password" placeholder="Ingresa tu Contraseña" className="input-form"/>
                 <Link to="/main">
                   <Boton nombre="Ingresar"/>
                 </Link>
