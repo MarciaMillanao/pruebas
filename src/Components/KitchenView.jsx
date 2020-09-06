@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import '../style/Kitchen.css';
 
 const db = firebase.firestore();
-const ref = db.collection('pedido')
 let pedidoFinal= [];
 
 const KitchenView = () => {

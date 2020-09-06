@@ -79,8 +79,6 @@ const totalPedido = () => {
 
       })
       setPedido([])
-      
-      console.log("Id del documento: " , docRef.id )
     })
     .catch((error) => {
       console.log(error)
