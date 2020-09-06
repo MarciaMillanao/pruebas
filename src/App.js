@@ -8,6 +8,7 @@ import { BrowserRouter as Router,
 import Viewmenu from './Components/Menu-view';
 import AuthPersonal from './Components/AuthPersonal';
 import KitchenView from './Components/KitchenView';
+import PruebaEnvio from './Components/PruebaEnvio';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route exact path="/cocina">
           <KitchenView/>
+        </Route>
+        <Route exact path="/prueba">
+          <PruebaEnvio/>
         </Route>
       </Switch>
     </Router>

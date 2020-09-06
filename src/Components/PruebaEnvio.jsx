@@ -1,6 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import data from '../data.js';
-import '../style/Menu-view.css';
 import {firebase} from '../FirebaseConfig';
 
 const datosDesayuno = data.Desayuno;
@@ -10,8 +9,8 @@ const db = firebase.firestore();
 let arrDocument=[];
 let refId = '';
 
-const Waiter = () => {
-// Estado del pedido, aquí se actualizará el estado del pedido
+function PruebaEnvio() {
+ // Estado del pedido, aquí se actualizará el estado del pedido
  const [pedido, setPedido] = useState([])
  const [cantidad, setCantidad] = useState(1)
  const [nombreCliente, setNombreCliente] = useState('')
@@ -33,51 +32,34 @@ const eliminarItem = id => {
 // función para sumar el valor del pedido
 const calcular = pedido.map(item => Math.floor(item.valor))
 const sumar = calcular.reduce((a , b) => a + b, 0)
-//console.log(sumar)
+console.log(sumar)
 
 // Funcion para agregar cantidad NO FUNCIONA AÚN
 const aumentar = (cantidad) => {
-  //console.log(typeof cantidad)
+  console.log(typeof cantidad)
 //  setCantidad(Math.floor(cantidad += 1))
 //   console.log(cantidad)
 }
 // Funcion para disminuir cantidad NO FUNCIONA AÚN
 const disminuir = (cantidad) => {
-  //console.log(typeof cantidad)
+  console.log(typeof cantidad)
   // setCantidad(cantidad -1)
 }
+
+
 
 // Esta función enviará el pedido listo a la colección de Firebase
 const totalPedido = () => {
   if (window.confirm("Quieres confirmar el pedido")) { 
    
-    db.collection('cliente').add({
-      //...pedido, 
+    db.collection('pedido').add({
       status: 'En espera',
       total: sumar,
       nombreCliente,
-      fecha: new Date().toLocaleString()
-      
+      pedido: {...pedido}
     })
     .then( (docRef) => {
       refId = docRef.id;
-      let producto= pedido.map((item) => {
-        return item.producto
-      })
-      let cantidades = pedido.map((item) => {
-        return item.cantidad
-      })
-      let precios = pedido.map((item) => {
-        return item.valor
-      })
-     console.log(producto, cantidades, precios)
-      db.collection('pedido').add({
-        productos: producto,
-        cantidades: cantidades,
-        precios: precios,
-        refCliente: refId
-
-      })
       setPedido([])
       
       console.log("Id del documento: " , docRef.id )
@@ -95,6 +77,7 @@ useEffect(() => {
     try {
       const data = await db.collection('pedido').get()
        arrDocument = data.docs.map(doc => ({id:doc.id, ...doc.data()}))
+      console.log(32, arrDocument)
     }
     catch(error){
       console.log(error)
@@ -160,4 +143,4 @@ useEffect(() => {
     )
 }
 
-export default Waiter
+export default PruebaEnvio

@@ -1,0 +1,33 @@
+.actionKitchen{
+    display: flex;
+    flex-direction: row;
+}
+.statusOrder{
+    outline: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.orderOk{
+    outline: 1px solid green;
+}
+
+.order{
+    display:flex;
+    flex-direction: row;
+}
+
+.detailOrder{
+    display: flex;
+    flex-direction: column;
+}
+.detailOrder li{
+    list-style-type: none;
+}
+
+.containerOrderDetail{
+    outline: 1px solid blue;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
