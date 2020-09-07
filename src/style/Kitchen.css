@@ -3,7 +3,6 @@
     flex-direction: row;
 }
 .statusOrder{
-    outline: 1px solid red;
     display: flex;
     flex-wrap: wrap;
 }
@@ -15,6 +14,9 @@
 .order{
     display:flex;
     flex-direction: row;
+    height: 60%;
+    padding-top: 15px;
+
 }
 
 .detailOrder{
@@ -23,6 +25,7 @@
 }
 .detailOrder li{
     list-style-type: none;
+    margin: 5px;
 }
 
 .containerOrderDetail{
@@ -30,4 +33,46 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    max-width: 270px;
+    height: 285px;
+    margin: 15px;
+    padding: 10px
 }
+
+.orderReady{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+    border: 1px solid #000000;
+    padding: 10px 15px;
+
+}
+.clientDetail{
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+
+}
+.clientDetail span{
+    font-weight: 300;
+    padding-left: 25px;
+}
+
+.dateDetail{
+    font-size: 12px;
+    margin: 0;
+}
+
+.buttonEnd {
+    width: 100%;
+    justify-self: flex-end;
+}
+
+.contentOrder{
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+

@@ -15,6 +15,7 @@ const Waiter = () => {
  const [pedido, setPedido] = useState([])
  const [cantidad, setCantidad] = useState(1)
  const [nombreCliente, setNombreCliente] = useState('')
+ const [entregaPedido, setEntregaPedido] = useState([])
 
 //Aquí vamos agregando al array vacío los productos que se van haciendo click
  const  addProduct = (product) => {   
@@ -28,6 +29,17 @@ const Waiter = () => {
 const eliminarItem = id => {
   const arrayFiltrado = pedido.filter(item => item.id !== id) 
   setPedido(arrayFiltrado)
+}
+
+const deliver = (id) => {
+  console.log(id)
+  db.collection('entregar').doc(id).delete()
+  .then(() => {
+    console.log('El archivo listo para entregar')
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 }
 
 // función para sumar el valor del pedido
@@ -91,12 +103,13 @@ const totalPedido = () => {
 useEffect(() => {
   const visualizarPedidos = async () => {
     try {
-      const data = await db.collection('pedido').get()
+      const data = await db.collection('entregar').orderBy("fecha","asc").get()
        arrDocument = data.docs.map(doc => ({id:doc.id, ...doc.data()}))
     }
     catch(error){
       console.log(error)
     }
+    setEntregaPedido(arrDocument)
   }
   visualizarPedidos();
 }, [])
@@ -145,12 +158,16 @@ useEffect(() => {
         </div>
         <button onClick={() => totalPedido()}>Enviar pedido</button>
     </div>
-        <div className="statusOrder col">Aquí veremos el estatus del pedido
+        <div className="col">Aquí veremos el estatus del pedido
         {
-          arrDocument.map((item) => (
-          <div key={item.id}>{item.nombreCliente}
-          <button>Por Entregar</button>
-          </div>
+          entregaPedido.map((item, k) => (
+            <div key={k} className="orderReady orderbox">
+            <div >
+                <p className="clientDetail">{item.nombre}</p>
+                <p className="dateDetail">{item.fecha}</p>
+            </div>
+            <button onClick={() => deliver(item.id)}>Entregar</button>
+        </div>
           ))
         }
         </div>
