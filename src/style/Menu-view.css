@@ -32,3 +32,8 @@
     color:#FFFFFF;
     border:1px solid #C23440;
 }
+
+.orderbox{
+    max-height: 65px;
+    width: 290px;
+}

@@ -5,9 +5,11 @@ import '../style/Kitchen.css';
 
 const db = firebase.firestore();
 let pedidoFinal= [];
+let arrEntregar= [];
 
 const KitchenView = () => {
 const [order, setOrder] = useState([])
+const [orderReady, setOrderReady] = useState([])
 const [buttonStatus, setButtonStatus] = useState(true)
 const [buttonMode, setButtonMode] = useState(false)
 let arrCliente= [];
@@ -17,8 +19,10 @@ const getOrder = async () => {
     try{
        const dataClient= await db.collection('cliente').orderBy("fecha", "asc").get()
        const dataORder = await db.collection('pedido').get()
+       const dataEntregar = await db.collection('entregar').orderBy("fecha","asc").get()
        arrCliente = dataClient.docs.map(doc => ({...doc.data(), id:doc.id}))
        arrOrder = dataORder.docs.map(doc => ({...doc.data()}))
+       arrEntregar = dataEntregar.docs.map(doc => ({id:doc.id, ...doc.data()}))
        arrCliente.map(item => {
            arrOrder.map(element => {
             if(item.id === element.refCliente){
@@ -31,6 +35,7 @@ const getOrder = async () => {
     catch(error){
         console.log(error)
     }
+    setOrderReady(arrEntregar)
 }
 
 const preparandoPedido = (id) => {
@@ -84,6 +89,7 @@ useEffect(() => {
     getOrder()
 
 }, [])
+console.log(orderReady)
 
     return (
         <div className="viewMesero">
@@ -97,8 +103,8 @@ useEffect(() => {
                             <div key={i} className="containerOrderDetail col-6">
                                 {
                                    [item].map((ele, e) => (
-                                       <div key={e}>
-                                           <p >{ele.nombreCliente} <span>{ele.fecha}</span></p>
+                                       <div className="contentOrder" key={e}>
+                                           <p className="clientDetail" >{ele.nombreCliente} <span className="dateDetail">{ele.fecha}</span></p>
                                            <div  className="order">
                                            <div className="detailOrder">
                                            {
@@ -134,9 +140,9 @@ useEffect(() => {
                                            }
                                            </div>
                                            </div>
-                                            <p>estado del pedido: {ele.status}</p>
+                                            <p>estado del pedido:<strong>{ele.status}</strong></p>
                                             {
-                                              (ele.status === 'En espera')? (<button onClick={() => preparandoPedido(ele.refCliente)}>Preparando</button>) : (<button onClick={() => listoPedido(ele.refCliente, ele.nombreCliente, ele.fecha)} >Listo</button>) 
+                                              (ele.status === 'En espera')? (<button  className="buttonEnd" onClick={() => preparandoPedido(ele.refCliente)}>Preparando</button>) : (<button className="buttonEnd" onClick={() => listoPedido(ele.refCliente, ele.nombreCliente, ele.fecha)} >Listo</button>) 
                                                 
                                             }
                                        </div>
@@ -146,7 +152,20 @@ useEffect(() => {
                             </div>
                         ))
                     }
-                 <div className="orderOk col-4">aquí se muestran los listos para entregar</div> 
+                  
+            </div>
+            <div className="orderOk col-4">aquí se muestran los listos para entregar
+            {
+                orderReady.map((item,i) => (
+                    <div key={i} className="orderReady">
+                        <div >
+                            <p className="clientDetail">{item.nombre}</p>
+                            <p className="dateDetail">{item.fecha}</p>
+                        </div>
+                        <div>{item.estado}</div>
+                    </div>
+                ))
+            }
             </div>
         </div>
         </div>
